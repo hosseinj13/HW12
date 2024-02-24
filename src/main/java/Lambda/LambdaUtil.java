@@ -2,6 +2,7 @@ package Lambda;
 
 import java.math.BigDecimal;
 import java.util.Map;
+import java.util.Random;
 import java.util.function.*;
 
 public class LambdaUtil {
@@ -13,7 +14,7 @@ public class LambdaUtil {
      */
     public static Supplier<String> helloSupplier() {
         //todo
-        return null;
+        return () -> "Hello";
     }
 
     /**
@@ -23,7 +24,7 @@ public class LambdaUtil {
      */
     public static Predicate<String> isEmptyPredicate() {
         //todo
-        return null;
+        return str -> str == null || str.isEmpty();
     }
 
     /**
@@ -34,7 +35,13 @@ public class LambdaUtil {
      */
     public static BiFunction<String, Integer, String> stringMultiplier() {
         //todo
-        return null;
+        return (str, n) -> {
+            StringBuilder result = new StringBuilder();
+            for (int i = 0; i < n; i++) {
+                result.append(str);
+            }
+            return result.toString();
+        };
     }
 
     /**
@@ -45,7 +52,7 @@ public class LambdaUtil {
      */
     public static Function<BigDecimal, String> toDollarStringFunction() {
         //todo
-        return null;
+        return amount -> "$" + amount.toString();
     }
 
     /**
@@ -58,7 +65,7 @@ public class LambdaUtil {
      */
     public static Predicate<String> lengthInRangePredicate(int min, int max) {
         //todo
-        return null;
+        return str -> str.length() >= min && str.length() < max;
     }
 
     /**
@@ -68,7 +75,8 @@ public class LambdaUtil {
      */
     public static IntSupplier randomIntSupplier() {
         //todo
-        return null;
+        Random random = new Random();
+        return random::nextInt;
     }
 
 
@@ -79,7 +87,8 @@ public class LambdaUtil {
      */
     public static IntUnaryOperator boundedRandomIntSupplier() {
         //todo
-        return null;
+        Random random = new Random();
+        return random::nextInt;
     }
 
     /**
@@ -89,7 +98,7 @@ public class LambdaUtil {
      */
     public static IntUnaryOperator intSquareOperation() {
         //todo
-        return null;
+        return operand -> operand * operand;
     }
 
     /**
@@ -99,7 +108,7 @@ public class LambdaUtil {
      */
     public static LongBinaryOperator longSumOperation() {
         //todo
-        return null;
+        return Long::sum;
     }
 
     /**
@@ -109,7 +118,7 @@ public class LambdaUtil {
      */
     public static ToIntFunction<String> stringToIntConverter() {
         //todo
-        return null;
+        return Integer::parseInt;
     }
 
     /**
@@ -121,7 +130,7 @@ public class LambdaUtil {
      */
     public static Supplier<IntUnaryOperator> nMultiplyFunctionSupplier(int n) {
         //todo
-        return null;
+        return () -> (int x) -> n * x;
     }
 
     /**
@@ -131,7 +140,7 @@ public class LambdaUtil {
      */
     public static Supplier<Supplier<Supplier<String>>> trickyWellDoneSupplier() {
         //todo
-        return null;
+        return () -> () -> () -> "WELL DONE";
     }
 
     /**
@@ -141,7 +150,7 @@ public class LambdaUtil {
      */
     public static UnaryOperator<Function<String, String>> composeWithTrimFunction() {
         //todo
-        return null;
+        return function -> function.compose(String::trim);
     }
 
     /**
@@ -155,7 +164,7 @@ public class LambdaUtil {
      */
     public static BiFunction<IntUnaryOperator, IntPredicate, IntUnaryOperator> functionToConditionalFunction() {
         //todo :: extra points
-        return null;
+        return (function, predicate) -> x -> predicate.test(x) ? function.applyAsInt(x) : x;
     }
 
     /**
@@ -167,6 +176,6 @@ public class LambdaUtil {
      */
     public static BiFunction<Map<String, IntUnaryOperator>, String, IntUnaryOperator> functionLoader() {
         //todo :: extra points
-        return null;
+        return (functionMap, functionName) -> functionMap.getOrDefault(functionName, IntUnaryOperator.identity());
     }
 }
